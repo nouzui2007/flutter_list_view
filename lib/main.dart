@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Home(),
         '/simple': (context) => const ListViewSimple(data: simpleStringData),
         '/designed': (context) => const DesignedListView(),
+        '/built': (context) => const BuiltListView(data: simpleStringData)
       },
     );
   }
@@ -52,6 +53,12 @@ class Home extends StatelessWidget {
               Navigator.pushNamed(context, '/designed');
             },
           ),
+          ElevatedButton(
+            child: const Text("データが増えていくリスト"),
+            onPressed: () {
+              Navigator.pushNamed(context, '/built');
+            },
+          ),
         ],
       )),
     );
@@ -79,7 +86,7 @@ class ListViewSimple extends StatelessWidget {
 }
 
 /*
-
+デザインされたリスト
  */
 class DesignedListView extends StatelessWidget {
   const DesignedListView({Key? key}) : super(key: key);
@@ -106,6 +113,49 @@ class DesignedListView extends StatelessWidget {
           border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
       child: ListTile(
         leading: icon,
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.black, fontSize: 18.0),
+        ),
+        onTap: () {
+          print("onTap called.");
+        }, // タップ
+        onLongPress: () {
+          print("onLongPress called.");
+        }, // 長押し
+      ),
+    );
+  }
+}
+
+/*
+デザインされたリスト
+ */
+class BuiltListView extends StatelessWidget {
+  const BuiltListView({Key? key, required this.data}) : super(key: key);
+
+  final List<String> data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Designed ListView'),
+      ),
+      body: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _messageItem(data[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _messageItem(String title) {
+    return Container(
+      decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
+      child: ListTile(
         title: Text(
           title,
           style: const TextStyle(color: Colors.black, fontSize: 18.0),
