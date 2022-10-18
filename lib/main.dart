@@ -19,8 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        // '/': (context) => const Home(),
-        '/': (context) => const DesignedListView(),
+        '/': (context) => const Home(),
         '/simple': (context) => const ListViewSimple(data: simpleStringData),
         '/designed': (context) => const DesignedListView(),
       },
@@ -38,19 +37,19 @@ class Home extends StatelessWidget {
         title: const Text("ホーム"),
       ),
       body: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextButton(
-                child: const Text("１ページへ"),
+              ElevatedButton(
+                child: const Text("単純なリストビュー"),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/first');
+                  Navigator.pushNamed(context, '/simple');
                 },
               ),
-              TextButton(
-                child: const Text("２ページへ"),
+              ElevatedButton(
+                child: const Text("デザインされたリストビュー"),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/second');
+                  Navigator.pushNamed(context, '/designed');
                 },
               ),
             ],
@@ -110,19 +109,19 @@ class DesignedListView extends StatelessWidget {
   Widget _menuItem(String title, Icon icon) {
     return GestureDetector(
       child:Container(
-          padding: EdgeInsets.all(8.0),
-          decoration: new BoxDecoration(
-              border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
+          padding: const EdgeInsets.all(8.0),
+          decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
           ),
           child: Row(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(10.0),
                 child:icon,
               ),
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color:Colors.black,
                     fontSize: 18.0
                 ),
