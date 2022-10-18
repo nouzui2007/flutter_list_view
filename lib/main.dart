@@ -15,25 +15,62 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ListViewSimple(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Home(),
+        '/simple': (context) => const ListViewSimple(data: [Text("item0"), Text("item1"), Text("item2")]),
+      },
     );
   }
 }
 
-class ListViewSimple extends StatelessWidget {
-  const ListViewSimple({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const data = [
-      Text("item0"),Text("item1"),Text("item2"),Text("item3"),Text("item4"),
-    ];
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("ホーム"),
+      ),
+      body: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                child: const Text("１ページへ"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/first');
+                },
+              ),
+              TextButton(
+                child: const Text("２ページへ"),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/second');
+                },
+              ),
+            ],
+          )
+      ),
+    );
+  }
+}
+
+
+/*
+シンプルなリストビュー
+ */
+class ListViewSimple extends StatelessWidget {
+  const ListViewSimple({Key? key, required this.data}) : super(key: key);
+
+  final List<Widget> data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         body: ListView(
             children: data
         ),
-      ),
     );
   }
 }
